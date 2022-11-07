@@ -1,0 +1,2 @@
+django>=3.2<=3.3
+djangoresrframework>=3.12,3.13
