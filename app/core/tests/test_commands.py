@@ -18,3 +18,4 @@ class CommandTest(SimpleTestCase):
         call_command('wait_for_db')
         self.assertEqual(patch_check.call_count, 6)
         patch_check.assert_called_with(databases=['default'])
+
