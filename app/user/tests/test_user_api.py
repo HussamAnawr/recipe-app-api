@@ -97,7 +97,8 @@ class PrivateUserAPITests(TestCase):
             name="Test Name",
         )
         self.client = APIClient()
-        self.client.force_authentication(user=self.user)
+        self.client.force_authenticate(user=self.user)
+
     def test_retrieve_profile_successfully(self):
         res = self.client.get(ME_URL)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
