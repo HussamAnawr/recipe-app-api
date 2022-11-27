@@ -32,11 +32,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
 
     objects = UserManager()
-
     USERNAME_FIELD = 'email'
 
 class Recipe(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='recipes')
+    user = models.FsoreignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='recipes')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField()
