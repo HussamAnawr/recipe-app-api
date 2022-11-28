@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from .. import models 
 from decimal import Decimal
 
+def create_user(email='example@example.com', password='passtest123'):
+    return get_user_model().objects.create_user(email=email, password=password)
+
 class ModelTests(TestCase):
     """Test Models for creating ang sign up."""
     def test_create_user_with_email_successuflly(self):
@@ -46,3 +49,8 @@ class ModelTests(TestCase):
             description='Sample recipe description',
         )
         self.assertEqual(str(recipe), recipe.title)
+
+    def test_create_tag(self):
+        user = create_user()
+        tag = models.Tag.objects.create(user=user, name='Tag1')
+        self.assertEqual(str(tag), tag.name)
