@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from .. import models 
 from decimal import Decimal
+from unittest.mock import patch 
 
 def create_user(email='example@example.com', password='passtest123'):
     return get_user_model().objects.create_user(email=email, password=password)
@@ -60,3 +61,10 @@ class ModelTests(TestCase):
         ingredient = models.Ingredient.objects.create(user=user, name="Ingreddient")
 
         self.assertEqual(str(ingredient), ingredient.name)
+    
+    @patch('core.models.uuid.uuid4')
+    def test_recipe_filename_uuid(self, mock_uuid):
+        uuid = 'test_uuid'
+        mock_uuid.return_value = uuid
+        file_path = models.recipe_image_file_path(None, 'example.jpg')
+        self.assertEqual(file_path , f'uploads/recipe/{uuid}.jpg')
